@@ -1,3 +1,5 @@
+#Normal Bubble Sort - Part 1
+#---------------------------
 def bubble_sort(array)
   l = array.length
   begin
@@ -16,23 +18,31 @@ bubble_sort(my_array)
 puts my_array
 
 
-#Yield sorting
-def bubble_sort_by(user_array)
-  for num_passes in 0..(user_array.length - 1)
-    for i in 0...(user_array.length - 1)
-      if yield(user_array[i],user_array[i+1]) > 1
-        user_array[i],user_array[i+1] = user_array[i+1],user_array[i]
+#Bubble Sort Method that Takes Bloc - Part 2
+#---------------------------
+
+def bubble_sort_by(array)
+  l = array.length
+  begin
+    nothing_sorted = false
+    swapped = false
+    (l - 1).times do |i|
+      if yield(array[i],array[i+1]) > 0           
+      array[i], array[i + 1] = array[i + 1], array[i]
+      nothing_sorted = true            
       end
     end
-  end
-  puts "Sorted Array :\n"
-  puts "-"*20
-  puts user_array
-  puts "-"*20
+  end until nothing_sorted == false
+  array
 end
 
-my_second_array = ["hi","hello","hey"]
-bubble_sort_by(my_second_array) do |left,right|
-  left.length - right.length
-end
-puts my_second_array
+p bubble_sort_by(["hi","hello","hey"]){ |left,right| left.length - right.length}
+
+
+
+
+
+
+
+
+
